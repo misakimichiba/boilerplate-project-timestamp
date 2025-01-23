@@ -24,7 +24,10 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-
+// [project url]/api/2015-12-25
+app.get("api/2015-12-25", function (req, res) {
+  res.json({"unix":1451001600000});
+});
 
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
