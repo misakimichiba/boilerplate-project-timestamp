@@ -26,7 +26,10 @@ app.get("/api/hello", function (req, res) {
 
 // get milliseconds and date from date
 app.get("/api/:input", function (req, res) {
-  if (!isNaN(new Date(req.params.input)) == false) {
+  if (!isNaN(new Date(req.params.input)) == false && !isNaN(parseInt(Number(req.params.input))) == false) {
+    res.json({ error: "Invalid Date" });
+  }
+  else if (!isNaN(new Date(req.params.input)) == false) {
     var milliseconds = parseInt(req.params.input);
     var dateGMT = new Date(milliseconds).toUTCString();
   }
