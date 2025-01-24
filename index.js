@@ -24,9 +24,23 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-// [project url]/api/2015-12-25
-app.get("api/2015-12-25", function (req, res) {
-  res.json({"unix":1451001600000});
+// get milliseconds and date from date
+app.get("/api/:input", function (req, res) {
+  if (!isNaN(new Date(req.params.input)) == false) {
+    var milliseconds = parseInt(req.params.input);
+    var dateGMT = new Date(milliseconds).toUTCString();
+  }
+  else {
+    var milliseconds = new Date(req.params.input).getTime()
+    var dateGMT = new Date(req.params.input).toUTCString();
+  }
+  res.json({ unix: milliseconds, utc: dateGMT });
+});
+
+app.get("/api/", function (req, res) {
+    var dateGMT = new Date().toUTCString();
+    var milliseconds = new Date(dateGMT).getTime()
+  res.json({ unix: milliseconds, utc: dateGMT });
 });
 
 // Listen on port set in environment variable or default to 3000
